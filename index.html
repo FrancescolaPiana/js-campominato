@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- fontawesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <!-- bootstrap CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+
+    <script src="./js/libreria.js"></script>
+    <link rel="stylesheet" href="./css/style.css">
+    <title>Document</title>
+</head>
+<body>
+
+    <header class="header-lp justify-content-between d-flex ">
+        <div class="d-flex">
+            <h1 class="wht space2"><i class="fa-solid fa-bomb"></i></h1>
+            <h1 class="wht align-self-end">Campo Minato</h1>
+        </div>
+        
+
+        <div class=" d-flex gap-3 justify-content-center align-items-center ">
+            <select class="selection-lp" name="levels" id="livello">
+                <option value="1">Novellino</option>
+                <option value="2">Esperto</option>
+                <option value="3">Incubo</option>
+            </select>
+
+            <a id="playbtn" class="play">PLAY<i class="space fa-solid fa-play"></i></a>
+        </div>
+        
+    </header>
+
+    <main class="main-lp d-flex flex-column justify-content-around ">
+
+        <h1 class="wht align-self-center">Seleziona un livello e clicca PLAY per iniziare!</h1>
+
+        <div id="campo_gioco" class="d-flex justify-content-center align-items-center">
+           
+
+        </div>
+
+    </main>
+    
+    <footer class="footer-lp">
+
+    </footer>
+
+    <script src="./js/script.js"></script>
+</body>
+</html>
