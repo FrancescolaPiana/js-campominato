@@ -14,14 +14,21 @@
 
 // pressione bottone play
 const buttonplay = document.getElementById('playbtn');
+let NumQuadrato;
+
+
+// Main Function
 
 function play() {
+
     console.log('inizio del gioco')
     
     const NUM_BOMB = 16;
     let BombP = [];
 
+    // prendiamo il parent a cui appendere il resto
     campodagioco = document.getElementById('campo_gioco');
+
     // svuotiamo il campodagioco
     campodagioco.innerHTML = '';
 
@@ -45,93 +52,96 @@ function play() {
         NumeroCelle = 25;
             break;
     }
-
         while (BombP.length < NUM_BOMB) {
             const bomba = randomNumber(1,NumeroCelle)
             if (!BombP.includes(bomba)) {
                 BombP.push(bomba);
             }
         }
+        
     console.log(BombP);
-
     const tentativi = NumeroCelle - NUM_BOMB;
     let score = 0 ;
+
+
+
     // FUNZIONI 
 
-// GENERATORE DI GRIGLIE
-function GrigliaGen() {
-    griglia = document.createElement('div');
-    griglia.className = 'griglia';
+    // GENERATORE DI GRIGLIE
+    function GrigliaGen() {
+        griglia = document.createElement('div');
+        griglia.className = 'griglia';
 
-        // contatore creazione celle
-    for ( i = 1; i <= NumeroCelle; i++) {
-        const Quadrato = QuadratoGen(i)
-        griglia.appendChild(Quadrato)
-    }
-campodagioco.appendChild(griglia)
-}    
-
-
-// GENERATORE DI QUADRATI
-function QuadratoGen(NumQuadrato) {
-const CelleperRiga = Math.sqrt(NumeroCelle)
-Quadrato = document.createElement('div')
-Quadrato.className = 'quadrato'
-if (BombP.includes(NumQuadrato)){
-    Quadrato.classList.add('bomb');
-}
-Quadrato.style.width = `calc(100% / ${CelleperRiga})`
-Quadrato.style.height = `calc(100% / ${CelleperRiga})`
-Quadrato.innerHTML = `
-    <span id="${NumQuadrato}"> ${NumQuadrato} </span>
-`
-griglia.appendChild(Quadrato) 
-
-// aggiunge la classe al click
-Quadrato.addEventListener('click' , saro);
-
-
-function saro() {
-
-    this.removeEventListener('click', saro)
-
-    // if (this.classList.contains('bomb')) {
-    //     for (let x = 1; x <= arrayquadrati; x++) {
-    //         arrayquadrati[x].removeEventListener('click' , saro)
-    //         console.log(arrayquadrati[x]);
-    //     }
-    // }
-
-    score++;
-    console.log(score);
-    if (BombP.includes(NumQuadrato)){
-        // bomba
-        const arraybomb = document.getElementsByClassName('bomb')
-
-
-        for (let i = 0; i < arraybomb.length; i++) {
-            arraybomb[i].classList.add('redd')
+            // contatore creazione celle
+        for ( i = 1; i <= NumeroCelle; i++) {
+            const Quadrato = QuadratoGen(i)
+            griglia.appendChild(Quadrato)
         }
+        campodagioco.appendChild(griglia)
+    }    
 
-        score--;
 
-        gameover()
+    // GENERATORE DI QUADRATI
+    function QuadratoGen(NumQuadrato) {
+        const CelleperRiga = Math.sqrt(NumeroCelle)
+        Quadrato = document.createElement('div')
+        Quadrato.className = 'quadrato'
+        if (BombP.includes(NumQuadrato)){
+            Quadrato.classList.add('bomb');
+        }
+        Quadrato.style.width = `calc(100% / ${CelleperRiga})`
+        Quadrato.style.height = `calc(100% / ${CelleperRiga})`
+        Quadrato.innerHTML = `
+            <span id="${NumQuadrato}"> ${NumQuadrato} </span>
+        `
+        griglia.appendChild(Quadrato);
+        // aggiunge la classe al click
+        Quadrato.addEventListener('click' , saro);
+        saro();
+        return Quadrato;
+    }  
 
-        // console.log(document.getElementsByClassName('bomb'));
-        // this.classList.add('redd');
-    }
-    // no bomba
-    else{
-        this.classList.add('torquoise');
-
-        if (score === tentativi) {
+    // GENERATORE DI TAG BOMB E RED
+    function saro() {
+        this.removeEventListener('click', saro)
+        score++;
+        console.log(score);
+        if (BombP.includes(NumQuadrato)){
+            // bomba
+            const arraybomb = document.getElementsByClassName('bomb')
+            for (let i = 0; i < arraybomb.length; i++) {
+                arraybomb[i].classList.add('redd')
+            }
+            score--;
             gameover()
         }
-    }
+        // no bomba
+        else{
+            this.classList.add('torquoise');
     
-}
-return Quadrato;
-}  
+            if (score === tentativi) {
+                gameover()
+            }
+        }
+    }
+
+    // FUNZIONE GAME OVER
+    function gameover() {
+        console.log('gameover');
+    
+        const sqr = document.getElementsByClassName('quadrato')
+        for (let n = 0; n < sqr.length; n++) {
+            console.log(sqr[n].removeEventListener);
+    
+           sqr[n].removeEventListener('click' , saro);
+        }
+       if (score === tentativi) {
+           console.log('Hai Vinto!');
+       }
+       else{
+           console.log('Hai Perso.');
+       }
+    }
 
     GrigliaGen();
 }
@@ -139,30 +149,3 @@ return Quadrato;
 // evento click al play
 buttonplay.addEventListener('click' , play );
 
-
-// width: calc(100% / 10);
-// height: calc(100% / 10);
-
-
-
-  
-
-// NOTA BENE LE VARIABILI DELLE FUNZIONI CHE DEVI RIUTILIZZARE IN ALTRE FUNZIONI SCRIVERE SENZA LET E CONST COSI DA TROVARLE NELLO SCOOP GLOBALE.
-
-function gameover() {
-         console.log('gameover');
-
-         const sqr = document.getElementsByClassName('quadrato')
-         for (let n = 0; n < sqr.length; n++) {
-            sqr[n].removeEventListener('click' , saro);
-         }
-
-        if (score === tentativi) {
-            console.log('Hai Vinto!');
-        }
-        else{
-            console.log('Hai Perso.');
-            
-        }
-        
-}
